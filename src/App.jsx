@@ -27,16 +27,18 @@ function App() {
         ])
     }
 
-    function displayRows() {
+    function clockRows() {
         return clockTimes.map((clockTime, index) => (
-            <tr key={"clock-row-" + index}>
+            <tr key={"clock-row-" + index} className="clock-row">
                 <td> <TextField id="clock-in"
+                                label="clock in"
                                 placeholder="e.g. 6:00"
                                 variant="filled"
                                 onChange={(e) => updateClockTime(e, index, 'in')}
                 />
                 </td>
                 <td> <TextField id="clock-out"
+                                label="clock out"
                                 placeholder="e.g. 15:00"
                                 variant="filled"
                                 onChange={(e) => updateClockTime(e, index, 'out')}
@@ -72,7 +74,7 @@ function App() {
             </tr>
             </thead>
             <tbody>
-            {displayRows()}
+            {clockRows()}
             <tr>
                 <td colSpan={2}> <Button variant="contained" onClick={addRow}> + </Button> </td>
             </tr>
