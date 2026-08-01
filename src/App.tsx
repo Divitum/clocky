@@ -2,10 +2,11 @@ import './App.css'
 import {Button, TextField} from "@mui/material";
 import React from "react";
 import { calculateTotalHoursMinusLunch } from "./services/calculatorService";
+import { ClockTime } from "./types/ClockTime";
 
 function App() {
 
-    const [clockTimes, setClockTimes] = React.useState([{in: "", out: ""}]);
+    const [clockTimes, setClockTimes] = React.useState<ClockTime[]>([{in: "", out: ""}]);
     const totalHoursMinusLunch = React.useMemo(() => calculateTotalHoursMinusLunch(clockTimes), [clockTimes]);
 
     function hasTime() {
@@ -16,7 +17,7 @@ function App() {
         setClockTimes([...clockTimes, {in: "", out:""}])
     }
 
-    function updateClockTime(e, index, key) {
+    function updateClockTime(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number, key: keyof ClockTime) {
         let updatedClockTime = {
             ...clockTimes[index],
             [key]: e.target.value

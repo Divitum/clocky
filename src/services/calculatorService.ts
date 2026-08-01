@@ -1,4 +1,6 @@
-export function calculateTotalHours(clockTimes) {
+import { ClockTime } from "../types/ClockTime";
+
+export function calculateTotalHours(clockTimes: ClockTime[]) {
     return clockTimes.reduce((acc, current) => {
         let inParts = current.in.split(":");
         let outParts = current.out.split(":");
@@ -9,7 +11,7 @@ export function calculateTotalHours(clockTimes) {
     }, 0) / 60;
 }
 
-export function calculateTotalHoursMinusLunch(clockTimes) {
+export function calculateTotalHoursMinusLunch(clockTimes: ClockTime[]) {
     const totalHours = calculateTotalHours(clockTimes);
     const days = Math.floor(totalHours / 8);
     return (totalHours - (days * 0.5)).toFixed(2);
