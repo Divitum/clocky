@@ -25,7 +25,7 @@ function App() {
         setClockTimes([
             ...clockTimes.slice(0, index),
             updatedClockTime,
-            ...clockTimes.slice(index, clockTimes.length - 1)
+            ...clockTimes.slice(index + 1, clockTimes.length)
         ])
     }
 
