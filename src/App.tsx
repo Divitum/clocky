@@ -63,8 +63,8 @@ function App() {
             {clockRows()}
             <tr>
                 <td colSpan={2}> 
-                    <Button variant="contained" onClick={addRow}> + </Button>
-                    <Button variant="contained" onClick={addDay} style={{ marginLeft: 8 }}> + Day </Button>
+                    <Button variant="contained" onClick={addRow}> Add Row </Button>
+                    <Button variant="outlined" onClick={addDay} sx={{ marginLeft: 1 }}> Add Day </Button>
                 </td>
             </tr>
             </tbody>
