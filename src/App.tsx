@@ -3,10 +3,13 @@ import {Button, TextField} from "@mui/material";
 import React from "react";
 import { calculateTotalHoursMinusLunch } from "./services/calculatorService";
 import { ClockTime } from "./types/ClockTime";
+import { ClockRow } from "./components/ClockRow";
+import {ClockDivider} from "./components/ClockDivider.tsx";
 
 function App() {
 
-    const [clockTimes, setClockTimes] = React.useState<ClockTime[]>([{in: "", out: ""}]);
+    const [days, setDays] = React.useState(1);
+    const [clockTimes, setClockTimes] = React.useState<ClockTime[]>([{day: 1, in: "", out: ""}]);
     const totalHoursMinusLunch = React.useMemo(() => calculateTotalHoursMinusLunch(clockTimes), [clockTimes]);
 
     function hasTime() {
@@ -14,7 +17,11 @@ function App() {
     }
 
     function addRow() {
-        setClockTimes([...clockTimes, {in: "", out:""}])
+        setClockTimes([...clockTimes, {day: days, in: "", out:""}])
+    }
+
+    function addDay() {
+        setDays(days + 1);
     }
 
     function updateClockTime(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number, key: keyof ClockTime) {
@@ -30,24 +37,15 @@ function App() {
     }
 
     function clockRows() {
-        return clockTimes.map((clockTime, index) => (
-            <tr key={"clock-row-" + index} className="clock-row">
-                <td> <TextField id="clock-in"
-                                label="clock in"
-                                placeholder="e.g. 6:00"
-                                variant="filled"
-                                onChange={(e) => updateClockTime(e, index, 'in')}
-                />
-                </td>
-                <td> <TextField id="clock-out"
-                                label="clock out"
-                                placeholder="e.g. 15:00"
-                                variant="filled"
-                                onChange={(e) => updateClockTime(e, index, 'out')}
-                />
-                </td>
-            </tr>
-        ))
+        return clockTimes.map((clockTime, index, originalArray) => {
+            let showDivider = index !== originalArray.length - 1 && originalArray[index + 1].day !== clockTime.day;
+            return (
+                <React.Fragment key={"clock-row-holder-" + index}>
+                    <ClockRow key={"clock-row-" + index} index={index} updateClockTime={updateClockTime}/>
+                    {showDivider ? <ClockDivider key={"clock-divider-" + index}/> : null}
+                </React.Fragment>
+            );
+        })
     }
 
 
@@ -64,7 +62,10 @@ function App() {
             <tbody>
             {clockRows()}
             <tr>
-                <td colSpan={2}> <Button variant="contained" onClick={addRow}> + </Button> </td>
+                <td colSpan={2}> 
+                    <Button variant="contained" onClick={addRow}> + </Button>
+                    <Button variant="contained" onClick={addDay} style={{ marginLeft: 8 }}> + Day </Button>
+                </td>
             </tr>
             </tbody>
         </table>
