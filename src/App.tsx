@@ -10,7 +10,7 @@ function App() {
 
     const [days, setDays] = React.useState(1);
     const [clockTimes, setClockTimes] = React.useState<ClockTime[]>([{day: 1, in: "", out: ""}]);
-    const totalHoursMinusLunch = React.useMemo(() => calculateTotalHoursMinusLunch(clockTimes), [clockTimes]);
+    const totalHoursMinusLunch = React.useMemo(() => calculateTotalHoursMinusLunch(clockTimes, days), [clockTimes, days]);
 
     function hasTime() {
         return clockTimes.every((clockTime) => clockTime.in && clockTime.out);

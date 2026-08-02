@@ -11,8 +11,8 @@ export function calculateTotalHours(clockTimes: ClockTime[]) {
     }, 0) / 60;
 }
 
-export function calculateTotalHoursMinusLunch(clockTimes: ClockTime[]) {
+export function calculateTotalHoursMinusLunch(clockTimes: ClockTime[], days: number) {
     const totalHours = calculateTotalHours(clockTimes);
-    const days = Math.floor(totalHours / 8);
-    return (totalHours - (days * 0.5)).toFixed(2);
+    let lunchTotal = days * 0.5;
+    return (totalHours - lunchTotal).toFixed(2);
 }
