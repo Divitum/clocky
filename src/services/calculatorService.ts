@@ -4,8 +4,8 @@ export function calculateTotalHours(clockTimes: ClockTime[]) {
     return clockTimes.reduce((acc, current) => {
         let inParts = current.in.split(":");
         let outParts = current.out.split(":");
-        let inMinutes = (inParts[0] * 60) + parseFloat(inParts[1]);
-        let outMinutes = (outParts[0] * 60) + parseFloat(outParts[1]);
+        let inMinutes = (Number(inParts[0]) * 60) + parseFloat(inParts[1]);
+        let outMinutes = (Number(outParts[0]) * 60) + parseFloat(outParts[1]);
         acc += outMinutes - inMinutes;
         return acc;
     }, 0) / 60;

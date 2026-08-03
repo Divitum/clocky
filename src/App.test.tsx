@@ -15,8 +15,8 @@ test("Total time should display once a clock in and clock out have been entered.
     const user = userEvent.setup();
     render(<App/>)
 
-    const clockInInput = screen.getByLabelText("clock in");
-    const clockOutInput = screen.getByLabelText("clock out");
+    const clockInInput = screen.getByLabelText("clock in") as HTMLInputElement;
+    const clockOutInput = screen.getByLabelText("clock out") as HTMLInputElement;
 
     expect(clockInInput).not.toBeNull();
     expect(clockOutInput).not.toBeNull();

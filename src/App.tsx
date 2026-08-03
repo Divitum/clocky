@@ -1,5 +1,5 @@
 import './App.css'
-import {Button, TextField} from "@mui/material";
+import {Button} from "@mui/material";
 import React from "react";
 import { calculateTotalHoursMinusLunch } from "./services/calculatorService";
 import { ClockTime } from "./types/ClockTime";
@@ -16,12 +16,14 @@ function App() {
         return clockTimes.every((clockTime) => clockTime.in && clockTime.out);
     }
 
-    function addRow() {
-        setClockTimes([...clockTimes, {day: days, in: "", out:""}])
+    function addRow(dayValue?: number) {
+        setClockTimes([...clockTimes, {day: dayValue ?? days, in: "", out:""}])
     }
 
     function addDay() {
-        setDays(days + 1);
+        let dayValue = days + 1;
+        setDays(dayValue);
+        addRow(dayValue);
     }
 
     function updateClockTime(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number, key: keyof ClockTime) {
@@ -63,7 +65,7 @@ function App() {
             {clockRows()}
             <tr>
                 <td colSpan={2}> 
-                    <Button variant="contained" onClick={addRow}> Add Row </Button>
+                    <Button variant="contained" onClick={() => addRow()}> Add Row </Button>
                     <Button variant="outlined" onClick={addDay} sx={{ marginLeft: 1 }}> Add Day </Button>
                 </td>
             </tr>
